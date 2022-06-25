@@ -1,3 +1,4 @@
+import { Task } from "./Task";
 import { EmptyList } from "./EmptyList";
 
 export function TasksContent() {
@@ -17,7 +18,8 @@ export function TasksContent() {
           </div>
         </div>
       </header>
-      <EmptyList />
+
+      <Task />
     </main>
   );
 }
