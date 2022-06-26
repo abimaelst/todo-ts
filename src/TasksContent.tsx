@@ -1,7 +1,23 @@
 import { Task } from "./Task";
 import { EmptyList } from "./EmptyList";
+import { useEffect, useState } from "react";
+
+interface Task {
+  id: number;
+  description: string;
+  is_finished: boolean;
+  updated_at: Date;
+  created_at: Date;
+  deleted_at: Date;
+}
 
 export function TasksContent() {
+  const [tasks, setTasks] = useState([] as Task[]);
+  useEffect(() => {
+    fetch(`http://todo-back.test/api/tasks`)
+      .then((response) => response.json())
+      .then((res) => setTasks([...res]));
+  }, []);
   return (
     <main className="w-full mt-16 text-white">
       <header className="flex items-start justify-between text-sm">
@@ -18,8 +34,13 @@ export function TasksContent() {
           </div>
         </div>
       </header>
-
-      <Task />
+      {tasks.length ? (
+        tasks.map(({ id }) => {
+          return <Task key={id} />;
+        })
+      ) : (
+        <EmptyList />
+      )}
     </main>
   );
 }
