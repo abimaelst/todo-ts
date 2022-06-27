@@ -1,5 +1,5 @@
 import { Trash } from "phosphor-react";
-import { ButtonTodo } from "./ButtonTodo";
+import { ButtonStatus } from "./ButtonStatus";
 
 interface Task {
   id: number;
@@ -15,13 +15,16 @@ interface PropsTask {
   onDeleteTask: (id: number) => void;
 }
 
-export function Task({ task: { id, description }, onDeleteTask }: PropsTask) {
+export function Task({
+  task: { id, description, is_finished },
+  onDeleteTask,
+}: PropsTask) {
   function handleDeleteTask() {
     onDeleteTask(id);
   }
   return (
     <div className="mt-6 w-full flex items-start gap-4 p-4 bg-zinc-800 border border-gray-600 border-opacity-40 text-white text-sm rounded-md">
-      <ButtonTodo />
+      <ButtonStatus taskId={id} initialStatus={is_finished} />
       <p className="text-sm flex-1">{description}</p>
       <button className="p-2" onClick={handleDeleteTask}>
         <Trash size={18} />
