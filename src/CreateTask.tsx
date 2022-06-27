@@ -1,26 +1,20 @@
 import { PlusCircle } from "phosphor-react";
 import { ChangeEvent, useState } from "react";
-export function CreateTask() {
+interface CreateTaskProps {
+  onCreateTask: (description: string) => void;
+}
+export function CreateTask({ onCreateTask }: CreateTaskProps) {
   const [taskDescription, setTaskDescription] = useState("");
-  function handleCreateTask() {
-    console.log("hi there", taskDescription);
-    fetch("http://todo-back.test/api/tasks", {
-      method: "post",
-      body: JSON.stringify({
-        description: taskDescription,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => console.log(res));
 
-    setTaskDescription("");
-  }
   function handleInputDescription(e: ChangeEvent<HTMLInputElement>) {
     setTaskDescription(e.target.value);
   }
+
+  function handleCreateTask() {
+    onCreateTask(taskDescription);
+    setTaskDescription("");
+  }
+
   return (
     <div className="w-full flex gap-2 -mt-7">
       <input

@@ -12,12 +12,12 @@ interface Task {
 
 interface PropsTask {
   task: Task;
-  onDelete: (id: number) => void;
+  onDeleteTask: (id: number) => void;
 }
 
-export function Task({ task: { id, description }, onDelete }: PropsTask) {
+export function Task({ task: { id, description }, onDeleteTask }: PropsTask) {
   function handleDeleteTask() {
-    onDelete(id);
+    onDeleteTask(id);
   }
   return (
     <div className="mt-6 w-full flex items-start gap-4 p-4 bg-zinc-800 border border-gray-600 border-opacity-40 text-white text-sm rounded-md">
